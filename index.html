@@ -1,1 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#030712">
 
+<title>Velora Battle — Play. Compete. Win.</title>
+
+<meta name="description" content="Download Velora Battle and compete in organized gaming tournaments. Manage tournaments, add money, withdraw eligible funds, receive match updates and access player support.">
+
+<style>
+
+:root{
+  --bg:#030712;
+  --card:#071426;
+  --card-light:#0a1a31;
+  --line:rgba(118,160,225,.14);
+  --line-strong:rgba(118,160,225,.24);
+
+  --text:#f5f8ff;
+  --muted:#78869d;
+  --soft:#a8b4c7;
+
+  --blue:#347cff;
+  --blue-light:#73a2ff;
+  --green:#5ce1ad;
+
+  --max:1120px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+
+  color:var(--text);
+
+  font-family:
+  Inter,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+
+  background:
+
+  radial-gradient(
+    circle at 85% 3%,
+    rgba(38,100,225,.16),
+    transparent 28rem
+  ),
+
+  radial-gradient(
+    circle at 5% 55%,
+    rgba(25,70,160,.06),
+    transparent 26rem
+  ),
+
+  linear-gradient(
+    rgba(65,105,165,.022) 1px,
+    transparent 1px
+  ),
+
+  linear-gradient(
+    90deg,
+    rgba(65,105,165,.022) 1px,
+    transparent 1px
+  ),
+
+  var(--bg);
+
+  background-size:
+  auto,
+  auto,
+  68px 68px,
+  68px 68px,
+  auto;
+
+  -webkit-font-smoothing:antialiased;
+}
+
+body.menu-open{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+a{
+  font:inherit;
+}
+
+button{
+  border:0;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+.container{
+  width:min(calc(100% - 40px),var(--max));
+  margin-inline:auto;
+}
+
+
+/* ================================
+   GLOBAL SECTION SYSTEM
+================================ */
+
+.section{
+  padding:112px 0;
+}
+
+.section-head{
+  max-width:690px;
+  margin-bottom:40px;
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  margin-bottom:19px;
+
+  color:var(--blue-light);
+
+  font-size:10px;
+  font-weight:800;
+
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+}
+
+.eyebrow::before{
+  content:"";
+
+  width:29px;
+  height:3px;
+
+  flex:0 0 auto;
+
+  border-radius:100px;
+
+  background:var(--blue);
+}
+
+.title{
+  max-width:700px;
+
+  font-size:clamp(35px,5vw,54px);
+  line-height:1.07;
+
+  font-weight:600;
+
+  letter-spacing:-2px;
+}
+
+.copy{
+  max-width:640px;
+
+  margin-top:18px;
+
+  color:var(--muted);
+
+  font-size:15px;
+  line-height:1.8;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.btn{
+  min-height:55px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  padding:0 23px;
+
+  border-radius:14px;
+
+  font-size:14px;
+  font-weight:750;
+
+  transition:
+  transform .2s ease,
+  box-shadow .2s ease,
+  border-color .2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  color:#fff;
+
+  background:
+  linear-gradient(
+    135deg,
+    #438aff,
+    #2466e9
+  );
+
+  box-shadow:
+  0 15px 38px
+  rgba(31,94,224,.17);
+}
+
+.btn-primary:hover{
+  box-shadow:
+  0 18px 45px
+  rgba(31,94,224,.27);
+}
+
+.btn-secondary{
+  color:#e9effb;
+
+  border:
+  1px solid
+  var(--line-strong);
+
+  background:
+  rgba(8,23,43,.75);
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.header{
+  height:76px;
+
+  position:sticky;
+  top:0;
+
+  z-index:1000;
+
+  background:
+  rgba(3,7,18,.88);
+
+  border-bottom:
+  1px solid
+  var(--line);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+
+.nav{
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+
+  object-fit:cover;
+
+  border-radius:14px;
+
+  border:
+  1px solid
+  var(--line-strong);
+
+  background:var(--card);
+}
+
+.brand-name{
+  font-size:19px;
+
+  font-weight:750;
+
+  letter-spacing:-.5px;
+}
+
+.nav-links{
+  display:flex;
+
+  align-items:center;
+
+  gap:26px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  font-weight:650;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-download{
+  padding:11px 17px;
+
+  color:#fff !important;
+
+  border-radius:11px;
+
+  background:var(--blue);
+}
+
+.menu-btn{
+  display:none;
+
+  width:45px;
+  height:45px;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:14px;
+
+  background:var(--card);
+}
+
+.menu-btn svg{
+  width:22px;
+}
+
+.mobile-menu{
+  display:none;
+
+  position:fixed;
+
+  top:76px;
+  left:0;
+  right:0;
+
+  z-index:999;
+
+  padding:
+  14px
+  20px
+  20px;
+
+  background:
+  rgba(3,7,18,.98);
+
+  border-bottom:
+  1px solid
+  var(--line);
+}
+
+.mobile-menu.open{
+  display:grid;
+  gap:4px;
+}
+
+.mobile-menu a{
+  padding:
+  14px
+  15px;
+
+  color:var(--soft);
+
+  border-radius:11px;
+}
+
+.mobile-menu a:hover{
+  background:var(--card);
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero{
+  /*
+  Larger top padding creates the clean
+  empty premium space requested.
+  */
+
+  padding:
+  130px
+  0
+  78px;
+}
+
+.hero-grid{
+  display:grid;
+
+  grid-template-columns:
+  minmax(0,1.05fr)
+  minmax(330px,.75fr);
+
+  align-items:center;
+
+  gap:64px;
+}
+
+.hero-badge{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  margin-bottom:25px;
+
+  padding:
+  9px
+  13px;
+
+  color:#9dbbff;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+  border:
+  1px solid
+  rgba(76,134,255,.25);
+
+  border-radius:100px;
+
+  background:
+  rgba(31,82,180,.09);
+}
+
+.hero-badge::before{
+  content:"";
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#6ea0ff;
+
+  box-shadow:
+  0 0 16px
+  rgba(110,160,255,.7);
+}
+
+.hero h1{
+  max-width:700px;
+
+  font-size:
+  clamp(50px,7vw,76px);
+
+  line-height:1;
+
+  font-weight:710;
+
+  letter-spacing:-3.8px;
+}
+
+.hero h1 span{
+  color:var(--blue-light);
+}
+
+.hero-copy{
+  max-width:620px;
+
+  margin-top:25px;
+
+  color:#8592a8;
+
+  font-size:15px;
+
+  line-height:1.82;
+}
+
+.hero-actions{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:30px;
+}
+
+.hero-points{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:
+  10px
+  18px;
+
+  margin-top:20px;
+
+  color:#6e7c92;
+
+  font-size:11px;
+}
+
+.hero-points span::before{
+  content:"✓";
+
+  margin-right:7px;
+
+  color:var(--green);
+
+  font-weight:900;
+}
+
+
+/* ================================
+   MAIN APP CARD
+================================ */
+
+.app-card{
+  padding:27px;
+
+  border:
+  1px solid
+  var(--line-strong);
+
+  border-radius:26px;
+
+  background:
+
+  radial-gradient(
+    circle at 100% 0,
+    rgba(46,109,230,.25),
+    transparent 48%
+  ),
+
+  linear-gradient(
+    145deg,
+    #091b33,
+    #061426
+  );
+
+  box-shadow:
+  0 30px 80px
+  rgba(0,0,0,.18);
+}
+
+.app-top{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:16px;
+}
+
+.app-logo{
+  width:68px;
+  height:68px;
+
+  object-fit:cover;
+
+  border-radius:19px;
+
+  border:
+  1px solid
+  var(--line-strong);
+}
+
+.live{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  padding:
+  8px
+  11px;
+
+  color:#70deb4;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.7px;
+
+  text-transform:uppercase;
+
+  border:
+  1px solid
+  rgba(91,224,173,.18);
+
+  border-radius:100px;
+
+  background:
+  rgba(91,224,173,.07);
+}
+
+.live::before{
+  content:"";
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--green);
+}
+
+.app-card h2{
+  margin-top:25px;
+
+  font-size:25px;
+
+  line-height:1.25;
+
+  font-weight:680;
+
+  letter-spacing:-.7px;
+}
+
+.app-card > p{
+  margin-top:11px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.7;
+}
+
+.quick-grid{
+  display:grid;
+
+  grid-template-columns:
+  1fr
+  1fr;
+
+  gap:9px;
+
+  margin-top:20px;
+}
+
+.quick{
+  min-height:99px;
+
+  padding:14px;
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:14px;
+
+  background:
+  rgba(6,20,38,.68);
+}
+
+.quick strong{
+  display:block;
+
+  font-size:13px;
+
+  line-height:1.35;
+}
+
+.quick span{
+  display:block;
+
+  margin-top:6px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.55;
+}
+
+
+/* ================================
+   FEATURES
+================================ */
+
+.features{
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:14px;
+}
+
+.feature{
+  min-height:225px;
+
+  padding:24px;
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:20px;
+
+  background:
+
+  linear-gradient(
+    145deg,
+    rgba(9,27,51,.96),
+    rgba(6,19,36,.96)
+  );
+
+  transition:
+  transform .2s ease,
+  border-color .2s ease;
+}
+
+.feature:hover{
+  transform:
+  translateY(-3px);
+
+  border-color:
+  var(--line-strong);
+}
+
+.feature-icon{
+  width:42px;
+  height:42px;
+
+  display:grid;
+
+  place-items:center;
+
+  margin-bottom:30px;
+
+  color:var(--blue-light);
+
+  font-size:17px;
+
+  border-radius:12px;
+
+  background:
+  rgba(35,92,197,.2);
+}
+
+.feature h3{
+  font-size:18px;
+
+  line-height:1.3;
+
+  font-weight:680;
+}
+
+.feature p{
+  margin-top:9px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.68;
+}
+
+
+/* ================================
+   HOW IT WORKS
+================================ */
+
+.steps{
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:14px;
+}
+
+.step{
+  min-height:205px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  padding:24px;
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:20px;
+
+  background:var(--card);
+}
+
+.step-no{
+  color:var(--blue-light);
+
+  font-size:11px;
+
+  font-weight:800;
+
+  letter-spacing:1px;
+}
+
+.step h3{
+  margin-top:auto;
+
+  font-size:18px;
+
+  line-height:1.3;
+}
+
+.step p{
+  margin-top:9px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.68;
+}
+
+
+/* ================================
+   FAQ
+================================ */
+
+.faq-section{
+  /*
+  Slightly larger spacing before FAQ
+  replaces removed download banner
+  with clean breathing room.
+  */
+
+  padding-top:135px;
+}
+
+.faq-head{
+  max-width:650px;
+
+  margin:
+  0
+  auto
+  35px;
+
+  text-align:center;
+}
+
+.faq-head .eyebrow{
+  justify-content:center;
+}
+
+.faq{
+  max-width:830px;
+
+  display:grid;
+
+  gap:10px;
+
+  margin-inline:auto;
+}
+
+.faq-item{
+  overflow:hidden;
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:17px;
+
+  background:var(--card);
+}
+
+.faq-q{
+  width:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:18px;
+
+  padding:
+  19px
+  21px;
+
+  cursor:pointer;
+
+  color:#f5f8ff;
+
+  text-align:left;
+
+  background:transparent;
+}
+
+.faq-q strong{
+  font-size:14px;
+
+  line-height:1.5;
+}
+
+.plus{
+  width:31px;
+  height:31px;
+
+  flex:
+  0
+  0
+  auto;
+
+  display:grid;
+
+  place-items:center;
+
+  color:var(--blue-light);
+
+  border:
+  1px solid
+  var(--line);
+
+  border-radius:50%;
+
+  transition:
+  transform .2s ease;
+}
+
+.answer{
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:
+  max-height .28s ease;
+}
+
+.answer p{
+  padding:
+  0
+  21px
+  20px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.75;
+}
+
+.faq-item.open .answer{
+  max-height:260px;
+}
+
+.faq-item.open .plus{
+  transform:rotate(45deg);
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer{
+  padding:
+  42px
+  0;
+
+  border-top:
+  1px solid
+  var(--line);
+}
+
+.footer-top{
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:30px;
+}
+
+.footer-copy{
+  max-width:420px;
+
+  margin-top:13px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.7;
+}
+
+.footer-links{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:18px;
+
+  color:var(--muted);
+
+  font-size:12px;
+}
+
+.footer-links a:hover{
+  color:#fff;
+}
+
+.copyright{
+  margin-top:30px;
+
+  padding-top:20px;
+
+  color:#58667d;
+
+  font-size:11px;
+
+  border-top:
+  1px solid
+  var(--line);
+}
+
+
+/* ================================
+   REVEAL ANIMATION
+================================ */
+
+.reveal{
+  opacity:0;
+
+  transform:
+  translateY(18px);
+
+  transition:
+  opacity .6s ease,
+  transform .6s ease;
+}
+
+.reveal.show{
+  opacity:1;
+
+  transform:none;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu-btn{
+    display:flex;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+
+    gap:48px;
+  }
+
+  .features{
+    grid-template-columns:
+    1fr
+    1fr;
+  }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+  .container{
+    width:
+    calc(100% - 32px);
+  }
+
+
+  /*
+  Premium vertical spacing between
+  major sections.
+  */
+
+  .section{
+    padding:
+    92px
+    0;
+  }
+
+
+  .section-head{
+    margin-bottom:30px;
+  }
+
+
+  .eyebrow{
+    margin-bottom:16px;
+
+    font-size:9px;
+
+    letter-spacing:1.35px;
+  }
+
+
+  .eyebrow::before{
+    width:25px;
+  }
+
+
+  .title{
+    max-width:500px;
+
+    font-size:
+    clamp(29px,8.3vw,35px);
+
+    line-height:1.12;
+
+    letter-spacing:-1.35px;
+  }
+
+
+  .copy{
+    margin-top:15px;
+
+    font-size:13px;
+
+    line-height:1.78;
+  }
+
+
+  /* NAV */
+
+
+  .header{
+    height:72px;
+  }
+
+
+  .mobile-menu{
+    top:72px;
+  }
+
+
+  .logo{
+    width:42px;
+    height:42px;
+  }
+
+
+  .brand-name{
+    font-size:17px;
+  }
+
+
+  .menu-btn{
+    width:43px;
+    height:43px;
+  }
+
+
+  /* HERO */
+
+
+  .hero{
+    /*
+    Clean empty space requested
+    between navbar and hero content.
+    */
+
+    padding:
+    112px
+    0
+    62px;
+  }
+
+
+  .hero-grid{
+    gap:38px;
+  }
+
+
+  .hero-badge{
+    margin-bottom:22px;
+
+    padding:
+    8px
+    11px;
+
+    font-size:8px;
+  }
+
+
+  .hero h1{
+    max-width:390px;
+
+    font-size:
+    clamp(38px,10.8vw,45px);
+
+    line-height:1.035;
+
+    letter-spacing:-2.15px;
+  }
+
+
+  .hero-copy{
+    margin-top:21px;
+
+    font-size:13.5px;
+
+    line-height:1.78;
+  }
+
+
+  .hero-actions{
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    margin-top:26px;
+  }
+
+
+  .btn{
+    min-height:53px;
+
+    font-size:13px;
+  }
+
+
+  .hero-points{
+    margin-top:18px;
+
+    gap:
+    8px
+    13px;
+
+    font-size:10px;
+  }
+
+
+  /* MAIN APP CARD */
+
+
+  .app-card{
+    padding:22px;
+
+    border-radius:22px;
+  }
+
+
+  .app-logo{
+    width:59px;
+    height:59px;
+
+    border-radius:17px;
+  }
+
+
+  .live{
+    padding:
+    7px
+    9px;
+
+    font-size:8px;
+  }
+
+
+  .app-card h2{
+    margin-top:22px;
+
+    font-size:21px;
+
+    line-height:1.3;
+  }
+
+
+  .app-card > p{
+    margin-top:9px;
+
+    font-size:11.5px;
+
+    line-height:1.68;
+  }
+
+
+  .quick-grid{
+    gap:8px;
+
+    margin-top:18px;
+  }
+
+
+  .quick{
+    min-height:94px;
+
+    padding:13px;
+  }
+
+
+  .quick strong{
+    font-size:11.5px;
+  }
+
+
+  .quick span{
+    font-size:9px;
+
+    line-height:1.55;
+  }
+
+
+  /* FEATURES */
+
+
+  .features{
+    grid-template-columns:1fr;
+
+    gap:11px;
+  }
+
+
+  .feature{
+    min-height:auto;
+
+    padding:20px;
+
+    border-radius:18px;
+  }
+
+
+  .feature-icon{
+    width:39px;
+    height:39px;
+
+    margin-bottom:23px;
+  }
+
+
+  .feature h3{
+    font-size:16px;
+  }
+
+
+  .feature p{
+    margin-top:7px;
+
+    font-size:11.5px;
+
+    line-height:1.68;
+  }
+
+
+  /* HOW IT WORKS */
+
+
+  .steps{
+    grid-template-columns:1fr;
+
+    gap:10px;
+  }
+
+
+  .step{
+    min-height:auto;
+
+    padding:20px;
+
+    border-radius:17px;
+  }
+
+
+  .step h3{
+    margin-top:30px;
+
+    font-size:16px;
+  }
+
+
+  .step p{
+    margin-top:7px;
+
+    font-size:11.5px;
+
+    line-height:1.68;
+  }
+
+
+  /* FAQ */
+
+
+  .faq-section{
+    padding-top:125px;
+  }
+
+
+  .faq-head{
+    margin-bottom:29px;
+  }
+
+
+  .faq-q{
+    padding:17px;
+  }
+
+
+  .faq-q strong{
+    font-size:12.5px;
+  }
+
+
+  .answer p{
+    padding:
+    0
+    17px
+    18px;
+
+    font-size:11.5px;
+  }
+
+
+  /* FOOTER */
+
+
+  .footer{
+    padding:
+    34px
+    0;
+  }
+
+
+  .footer-top{
+    flex-direction:column;
+  }
+
+
+  .footer-links{
+    gap:14px;
+  }
+
+}
+
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media(max-width:360px){
+
+  .container{
+    width:
+    calc(100% - 26px);
+  }
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .title{
+    font-size:28px;
+  }
+
+  .quick-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     NAVBAR
+================================ -->
+
+<header class="header">
+
+<div class="container nav">
+
+
+<a href="#home" class="brand">
+
+<img
+src="logo.png"
+alt="Velora Battle logo"
+class="logo"
+>
+
+<span class="brand-name">
+Velora Battle
+</span>
+
+</a>
+
+
+<nav class="nav-links">
+
+<a href="#features">
+Features
+</a>
+
+<a href="#how">
+How It Works
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+<a
+href="velorabattle.apk"
+download
+class="nav-download"
+>
+Download
+</a>
+
+</nav>
+
+
+<button
+class="menu-btn"
+id="menuBtn"
+aria-label="Open navigation"
+aria-expanded="false"
+>
+
+<svg
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+>
+
+<path d="M4 6h16"></path>
+<path d="M4 12h16"></path>
+<path d="M4 18h16"></path>
+
+</svg>
+
+</button>
+
+
+</div>
+
+</header>
+
+
+<nav
+class="mobile-menu"
+id="mobileMenu"
+>
+
+<a href="#features">
+Features
+</a>
+
+<a href="#how">
+How It Works
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+<a
+href="velorabattle.apk"
+download
+>
+Download Velora Battle
+</a>
+
+</nav>
+
+
+
+<main>
+
+
+
+<!-- ================================
+     HERO
+================================ -->
+
+<section
+class="hero"
+id="home"
+>
+
+<div class="container hero-grid">
+
+
+<div>
+
+
+<div class="hero-badge">
+Competitive Tournament Platform
+</div>
+
+
+<h1>
+
+Your next win
+
+<span>
+starts here.
+</span>
+
+</h1>
+
+
+<p class="hero-copy">
+
+Download Velora Battle and enter a focused competitive platform built for organized tournaments, smooth account management, easy add money, withdrawals, match updates and responsive player support.
+
+</p>
+
+
+<div class="hero-actions">
+
+
+<a
+href="velorabattle.apk"
+download
+class="btn btn-primary"
+>
+
+↓ Download Velora Battle
+
+</a>
+
+
+<a
+href="#features"
+class="btn btn-secondary"
+>
+
+Explore Features
+
+</a>
+
+
+</div>
+
+
+<div class="hero-points">
+
+<span>
+20K+ Users
+</span>
+
+<span>
+Fast Withdrawals
+</span>
+
+<span>
+Player Support
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<!-- MAIN BLUE APP CARD -->
+
+
+<article class="app-card reveal">
+
+
+<div class="app-top">
+
+
+<img
+src="logo.png"
+alt="Velora Battle"
+class="app-logo"
+>
+
+
+<span class="live">
+Available
+</span>
+
+
+</div>
+
+
+
+<h2>
+Everything built for competition.
+</h2>
+
+
+
+<p>
+
+Join tournaments, manage funds, follow match updates and access support from one focused platform.
+
+</p>
+
+
+
+<div class="quick-grid">
+
+
+<div class="quick">
+
+<strong>
+Easy Management
+</strong>
+
+<span>
+Find and manage tournament activity with less friction.
+</span>
+
+</div>
+
+
+
+<div class="quick">
+
+<strong>
+Add Money
+</strong>
+
+<span>
+Manage eligible account deposits from the app.
+</span>
+
+</div>
+
+
+
+<div class="quick">
+
+<strong>
+Fast Withdrawals
+</strong>
+
+<span>
+Submit and track eligible withdrawal requests.
+</span>
+
+</div>
+
+
+
+<div class="quick">
+
+<strong>
+Fast Support
+</strong>
+
+<span>
+Get help with account and tournament concerns.
+</span>
+
+</div>
+
+
+</div>
+
+
+</article>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- ================================
+     FEATURES
+================================ -->
+
+<section
+class="section"
+id="features"
+>
+
+<div class="container">
+
+
+<header class="section-head reveal">
+
+
+<div class="eyebrow">
+Platform Features
+</div>
+
+
+<h2 class="title">
+
+Everything you need to compete with confidence.
+
+</h2>
+
+
+<p class="copy">
+
+Velora Battle keeps tournament activity, account funds, withdrawals, match information and player assistance organized in one competitive experience.
+
+</p>
+
+
+</header>
+
+
+
+<div class="features">
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+♜
+</div>
+
+<h3>
+Easy Tournament Management
+</h3>
+
+<p>
+Discover available competitions, review match details and manage tournament activity from one place.
+</p>
+
+</article>
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+＋
+</div>
+
+<h3>
+Simple Add Money
+</h3>
+
+<p>
+Add eligible funds to your account and keep your tournament activity organized.
+</p>
+
+</article>
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+↓
+</div>
+
+<h3>
+Fast Withdrawals
+</h3>
+
+<p>
+Request eligible withdrawals through a simple process and follow your withdrawal activity.
+</p>
+
+</article>
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+20K
+</div>
+
+<h3>
+20K+ Users Reached
+</h3>
+
+<p>
+Velora Battle has reached more than twenty thousand users through its competitive platform.
+</p>
+
+</article>
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+◎
+</div>
+
+<h3>
+Match Updates
+</h3>
+
+<p>
+Access important tournament schedules, match information, rules and platform announcements.
+</p>
+
+</article>
+
+
+
+<article class="feature reveal">
+
+<div class="feature-icon">
+◉
+</div>
+
+<h3>
+Fast Customer Support
+</h3>
+
+<p>
+Get responsive assistance with tournaments, accounts, add money and eligible withdrawal concerns.
+</p>
+
+</article>
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- ================================
+     HOW IT WORKS
+================================ -->
+
+<section
+class="section"
+id="how"
+>
+
+<div class="container">
+
+
+<header class="section-head reveal">
+
+
+<div class="eyebrow">
+How It Works
+</div>
+
+
+<h2 class="title">
+
+Download. Join. Start competing.
+
+</h2>
+
+
+<p class="copy">
+
+Getting started with Velora Battle is simple. Install the app, create your account and enter available tournaments.
+
+</p>
+
+
+</header>
+
+
+
+<div class="steps">
+
+
+
+<article class="step reveal">
+
+<span class="step-no">
+01
+</span>
+
+<h3>
+Download Velora Battle
+</h3>
+
+<p>
+Get the official Android APK directly from this website.
+</p>
+
+</article>
+
+
+
+<article class="step reveal">
+
+<span class="step-no">
+02
+</span>
+
+<h3>
+Create Your Account
+</h3>
+
+<p>
+Register, access the platform and manage your account activity.
+</p>
+
+</article>
+
+
+
+<article class="step reveal">
+
+<span class="step-no">
+03
+</span>
+
+<h3>
+Choose a Tournament
+</h3>
+
+<p>
+Review available competitions, follow match information and start competing.
+</p>
+
+</article>
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- ================================
+     FAQ
+================================ -->
+
+<section
+class="section faq-section"
+id="faq"
+>
+
+<div class="container">
+
+
+<header class="faq-head reveal">
+
+
+<div class="eyebrow">
+FAQ
+</div>
+
+
+<h2 class="title">
+Questions before you join?
+</h2>
+
+
+<p class="copy">
+Everything you need to know before downloading Velora Battle.
+</p>
+
+
+</header>
+
+
+
+<div class="faq">
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+What is Velora Battle?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Velora Battle is a competitive gaming tournament platform where users can discover organized tournaments, manage account activity, access match information and get player support.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+How do I download Velora Battle?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Tap the official download button on this website to download the Velora Battle Android APK, then install it on your supported Android device.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+How do I add money?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Open the wallet or add money section inside Velora Battle and follow the available payment instructions shown in your account.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+How do withdrawals work?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Eligible users can submit withdrawal requests according to current platform requirements and track their withdrawal activity through Velora Battle.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+What tournament formats are available?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Velora Battle supports competitive formats including Per Kill, Survival, Squad and Full Map tournaments depending on current match availability.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+
+<article class="faq-item reveal">
+
+<button class="faq-q">
+
+<strong>
+How can I contact customer support?
+</strong>
+
+<span class="plus">
++
+</span>
+
+</button>
+
+
+<div class="answer">
+
+<p>
+
+Use the official support option provided by Velora Battle for help with tournament participation, accounts, add money and eligible withdrawal concerns.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+</main>
+
+
+
+
+<!-- ================================
+     FOOTER
+================================ -->
+
+<footer class="footer">
+
+
+<div class="container">
+
+
+<div class="footer-top">
+
+
+<div>
+
+
+<a
+href="#home"
+class="brand"
+>
+
+
+<img
+src="logo.png"
+alt="Velora Battle"
+class="logo"
+>
+
+
+<span class="brand-name">
+Velora Battle
+</span>
+
+
+</a>
+
+
+
+<p class="footer-copy">
+
+A competitive tournament platform built for organized matches, simple account management and a focused player experience.
+
+</p>
+
+
+</div>
+
+
+
+<nav class="footer-links">
+
+
+<a href="#features">
+Features
+</a>
+
+
+<a href="#how">
+How It Works
+</a>
+
+
+<a href="#faq">
+FAQ
+</a>
+
+
+<a href="#">
+Privacy Policy
+</a>
+
+
+<a href="#">
+Terms
+</a>
+
+
+<a href="#">
+Contact
+</a>
+
+
+</nav>
+
+
+</div>
+
+
+
+<p class="copyright">
+
+©
+<span id="year"></span>
+Velora Battle. All rights reserved.
+
+</p>
+
+
+</div>
+
+
+</footer>
+
+
+
+
+<script>
+
+
+/* MOBILE MENU */
+
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+
+const mobileMenu =
+document.getElementById("mobileMenu");
+
+
+
+menuBtn.addEventListener(
+"click",
+()=>{
+
+
+const open =
+mobileMenu
+.classList
+.toggle("open");
+
+
+document
+.body
+.classList
+.toggle(
+"menu-open",
+open
+);
+
+
+menuBtn
+.setAttribute(
+"aria-expanded",
+String(open)
+);
+
+
+}
+);
+
+
+
+mobileMenu
+.querySelectorAll("a")
+.forEach(link=>{
+
+
+link.addEventListener(
+"click",
+()=>{
+
+
+mobileMenu
+.classList
+.remove("open");
+
+
+document
+.body
+.classList
+.remove("menu-open");
+
+
+menuBtn
+.setAttribute(
+"aria-expanded",
+"false"
+);
+
+
+}
+);
+
+
+});
+
+
+
+
+/* FAQ */
+
+
+document
+.querySelectorAll(".faq-q")
+.forEach(button=>{
+
+
+button.addEventListener(
+"click",
+()=>{
+
+
+const current =
+button.closest(".faq-item");
+
+
+document
+.querySelectorAll(".faq-item")
+.forEach(item=>{
+
+
+if(item !== current){
+
+item
+.classList
+.remove("open");
+
+}
+
+
+});
+
+
+current
+.classList
+.toggle("open");
+
+
+}
+);
+
+
+});
+
+
+
+
+/* SCROLL REVEAL */
+
+
+const revealObserver =
+new IntersectionObserver(
+
+
+entries=>{
+
+
+entries.forEach(entry=>{
+
+
+if(entry.isIntersecting){
+
+
+entry
+.target
+.classList
+.add("show");
+
+
+revealObserver
+.unobserve(entry.target);
+
+
+}
+
+
+});
+
+
+},
+
+
+{
+
+
+threshold:.08,
+
+
+rootMargin:
+"0px 0px -30px 0px"
+
+
+}
+
+
+);
+
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(el=>{
+
+
+revealObserver
+.observe(el);
+
+
+});
+
+
+
+
+/* YEAR */
+
+
+document
+.getElementById("year")
+.textContent =
+new Date()
+.getFullYear();
+
+
+</script>
+
+
+</body>
+</html>

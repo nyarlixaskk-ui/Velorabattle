@@ -1,1 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b14">
 
+<title>Velora Battle — Compete. Win. Rise.</title>
+
+<meta name="description" content="Velora Battle is a competitive gaming tournament platform. Join tournaments, compete against players and climb the competition.">
+
+<style>
+
+:root{
+    --bg:#070b14;
+    --bg-soft:#0b111e;
+    --card:#0d1524;
+    --card-light:#101b2e;
+
+    --primary:#3b82f6;
+    --primary-soft:#2563eb;
+
+    --text:#f1f5f9;
+    --muted:#8793a7;
+    --border:#1c2940;
+
+    --radius:22px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+    radial-gradient(circle at 50% -10%,rgba(37,99,235,.15),transparent 35%),
+    var(--bg);
+
+    color:var(--text);
+
+    font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font:inherit;
+}
+
+.container{
+    width:min(1120px,calc(100% - 40px));
+    margin:auto;
+}
+
+
+/* NAVBAR */
+
+.navbar{
+    height:76px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(7,11,20,.88);
+    backdrop-filter:blur(16px);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.nav-content{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-icon{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:11px;
+
+    background:linear-gradient(145deg,#16233a,#0b1322);
+
+    border:1px solid var(--border);
+
+    color:#60a5fa;
+}
+
+.brand span{
+    color:#60a5fa;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+
+    color:#9aa7ba;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-download{
+    padding:10px 17px;
+
+    background:#2563eb;
+
+    border-radius:10px;
+
+    color:white!important;
+}
+
+
+/* HERO */
+
+.hero{
+    min-height:690px;
+
+    display:flex;
+    align-items:center;
+
+    text-align:center;
+
+    padding:100px 0 80px;
+}
+
+.hero-content{
+    max-width:820px;
+    margin:auto;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    padding:8px 14px;
+
+    border-radius:100px;
+
+    border:1px solid #1d3557;
+
+    background:#0b1424;
+
+    color:#7eb4ff;
+
+    font-size:12px;
+    font-weight:700;
+
+    letter-spacing:.08em;
+}
+
+.badge-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#3b82f6;
+
+    box-shadow:0 0 12px #3b82f6;
+}
+
+.hero h1{
+    margin-top:28px;
+
+    font-size:clamp(48px,8vw,86px);
+
+    line-height:.98;
+
+    letter-spacing:-.055em;
+
+    font-weight:850;
+}
+
+.hero h1 span{
+    color:#4d8ff7;
+}
+
+.hero-description{
+    max-width:640px;
+
+    margin:28px auto 0;
+
+    color:#8d9aae;
+
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:38px;
+
+    display:flex;
+    justify-content:center;
+    gap:14px;
+
+    flex-wrap:wrap;
+}
+
+.button{
+    min-height:54px;
+
+    padding:0 26px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    border-radius:13px;
+
+    font-weight:750;
+
+    transition:.25s;
+}
+
+.button-primary{
+    background:#2563eb;
+    color:white;
+
+    box-shadow:0 14px 40px rgba(37,99,235,.18);
+}
+
+.button-primary:hover{
+    background:#3478ec;
+    transform:translateY(-2px);
+}
+
+.button-secondary{
+    border:1px solid var(--border);
+
+    background:#0c1320;
+
+    color:#b8c2d1;
+}
+
+.button-secondary:hover{
+    border-color:#31415b;
+    color:white;
+}
+
+
+/* PHONE PREVIEW */
+
+.app-preview{
+    width:min(340px,88vw);
+
+    margin:85px auto 0;
+
+    padding:9px;
+
+    border-radius:38px;
+
+    background:linear-gradient(145deg,#17253b,#0b111c);
+
+    border:1px solid #263752;
+
+    box-shadow:
+    0 35px 100px rgba(0,0,0,.5),
+    0 0 80px rgba(37,99,235,.09);
+}
+
+.app-screen{
+    min-height:440px;
+
+    padding:28px 22px;
+
+    border-radius:30px;
+
+    background:
+    radial-gradient(circle at 70% 0%,rgba(59,130,246,.17),transparent 35%),
+    #080d16;
+
+    text-align:left;
+}
+
+.app-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.app-logo{
+    font-weight:800;
+}
+
+.wallet{
+    padding:7px 11px;
+
+    background:#111c2e;
+
+    border:1px solid #1f304a;
+
+    border-radius:9px;
+
+    font-size:11px;
+
+    color:#9cb4d7;
+}
+
+.featured-match{
+    margin-top:35px;
+
+    padding:22px;
+
+    border-radius:20px;
+
+    background:linear-gradient(145deg,#111d30,#0b1321);
+
+    border:1px solid #20314b;
+}
+
+.live{
+    color:#6da8ff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.12em;
+}
+
+.featured-match h3{
+    margin-top:10px;
+
+    font-size:23px;
+}
+
+.featured-match p{
+    margin-top:5px;
+
+    color:#77869b;
+
+    font-size:13px;
+}
+
+.join-button{
+    margin-top:20px;
+
+    width:100%;
+    height:42px;
+
+    border:0;
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:700;
+}
+
+.mini-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-top:12px;
+}
+
+.mini-card{
+    padding:17px;
+
+    border-radius:15px;
+
+    background:#0c1422;
+
+    border:1px solid #18263b;
+}
+
+.mini-card strong{
+    display:block;
+
+    font-size:18px;
+}
+
+.mini-card span{
+    color:#718096;
+
+    font-size:11px;
+}
+
+
+/* SECTION */
+
+.section{
+    padding:100px 0;
+}
+
+.section-header{
+    max-width:650px;
+
+    margin:auto;
+
+    text-align:center;
+}
+
+.section-label{
+    color:#5796f5;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:.15em;
+}
+
+.section-title{
+    margin-top:12px;
+
+    font-size:clamp(34px,6vw,52px);
+
+    line-height:1.1;
+
+    letter-spacing:-.04em;
+}
+
+.section-description{
+    margin-top:17px;
+
+    color:#7f8ca1;
+
+    font-size:17px;
+}
+
+
+/* FEATURES */
+
+.features{
+    margin-top:55px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+}
+
+.feature-card{
+    min-height:245px;
+
+    padding:28px;
+
+    border-radius:var(--radius);
+
+    background:linear-gradient(145deg,#0e1727,#0a111d);
+
+    border:1px solid var(--border);
+}
+
+.feature-icon{
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:13px;
+
+    background:#10213b;
+
+    border:1px solid #1e3555;
+
+    font-size:21px;
+}
+
+.feature-card h3{
+    margin-top:25px;
+
+    font-size:20px;
+}
+
+.feature-card p{
+    margin-top:10px;
+
+    color:#7f8ca0;
+
+    font-size:14px;
+}
+
+
+/* MODES */
+
+.modes{
+    margin-top:55px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+}
+
+.mode-card{
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:270px;
+
+    padding:30px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+
+    border-radius:var(--radius);
+
+    border:1px solid var(--border);
+
+    background:
+    radial-gradient(circle at 80% 10%,rgba(37,99,235,.15),transparent 35%),
+    #0b1320;
+}
+
+.mode-number{
+    position:absolute;
+
+    top:20px;
+    right:25px;
+
+    color:#17253a;
+
+    font-size:60px;
+
+    font-weight:900;
+}
+
+.mode-card h3{
+    font-size:24px;
+}
+
+.mode-card p{
+    margin-top:6px;
+
+    color:#7f8ca0;
+}
+
+
+/* HOW IT WORKS */
+
+.steps{
+    max-width:760px;
+
+    margin:60px auto 0;
+}
+
+.step{
+    display:grid;
+
+    grid-template-columns:60px 1fr;
+
+    gap:22px;
+
+    padding:25px 0;
+
+    border-bottom:1px solid #162235;
+}
+
+.step-number{
+    width:52px;
+    height:52px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:#0e1b30;
+
+    border:1px solid #213957;
+
+    color:#6aa7ff;
+
+    font-weight:800;
+}
+
+.step h3{
+    font-size:19px;
+}
+
+.step p{
+    margin-top:5px;
+
+    color:#77869a;
+}
+
+
+/* DOWNLOAD */
+
+.download-section{
+    padding:100px 0;
+}
+
+.download-card{
+    padding:75px 30px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    border:1px solid #203452;
+
+    background:
+    radial-gradient(circle at 50% 0%,rgba(37,99,235,.18),transparent 45%),
+    #0b1321;
+}
+
+.download-card h2{
+    font-size:clamp(35px,6vw,58px);
+
+    letter-spacing:-.04em;
+
+    line-height:1.05;
+}
+
+.download-card p{
+    max-width:570px;
+
+    margin:20px auto 30px;
+
+    color:#8491a5;
+}
+
+
+/* FAQ */
+
+.faq{
+    max-width:760px;
+
+    margin:50px auto 0;
+}
+
+.faq-item{
+    border-bottom:1px solid #18253a;
+}
+
+.faq-question{
+    width:100%;
+
+    padding:23px 0;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:none;
+    border:0;
+
+    color:white;
+
+    text-align:left;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.faq-question span{
+    font-size:23px;
+
+    color:#6f8098;
+}
+
+.faq-answer{
+    max-height:0;
+
+    overflow:hidden;
+
+    color:#7e8ba0;
+
+    transition:max-height .3s ease;
+}
+
+.faq-answer p{
+    padding:0 0 22px;
+}
+
+
+/* FOOTER */
+
+footer{
+    padding:60px 0 35px;
+
+    border-top:1px solid #142035;
+
+    background:#060a11;
+}
+
+.footer-content{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:40px;
+
+    flex-wrap:wrap;
+}
+
+.footer-brand{
+    max-width:330px;
+}
+
+.footer-brand p{
+    margin-top:15px;
+
+    color:#69778c;
+
+    font-size:14px;
+}
+
+.footer-links{
+    display:flex;
+
+    gap:55px;
+}
+
+.footer-column{
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+
+    color:#758398;
+
+    font-size:14px;
+}
+
+.footer-column strong{
+    color:#dbe4ef;
+
+    margin-bottom:5px;
+}
+
+.copyright{
+    margin-top:50px;
+
+    padding-top:25px;
+
+    border-top:1px solid #121d2d;
+
+    color:#566478;
+
+    font-size:13px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        min-height:auto;
+
+        padding-top:90px;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .features,
+    .modes{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+@media(max-width:480px){
+
+    .container{
+        width:min(100% - 28px,1120px);
+    }
+
+    .navbar{
+        height:68px;
+    }
+
+    .hero{
+        padding:75px 0 60px;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .hero-description{
+        font-size:16px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .button{
+        width:100%;
+    }
+
+    .app-preview{
+        margin-top:65px;
+    }
+
+    .section{
+        padding:75px 0;
+    }
+
+    .feature-card{
+        min-height:auto;
+    }
+
+    .footer-links{
+        width:100%;
+
+        justify-content:space-between;
+
+        gap:20px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+<div class="container nav-content">
+
+<a href="#" class="brand">
+
+<div class="brand-icon">V</div>
+
+Velora <span>Battle</span>
+
+</a>
+
+
+<div class="nav-links">
+
+<a href="#features">Features</a>
+
+<a href="#modes">Tournaments</a>
+
+<a href="#how">How It Works</a>
+
+<a href="#faq">FAQ</a>
+
+<a href="velorabattle.apk"
+class="nav-download"
+download>
+
+Download
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container hero-content">
+
+
+<div class="badge">
+
+<span class="badge-dot"></span>
+
+COMPETITIVE GAMING PLATFORM
+
+</div>
+
+
+<h1>
+
+Enter the Battle.<br>
+
+<span>Prove Your Skill.</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+Join competitive gaming tournaments, challenge other players
+and experience organized battles built for serious competitors.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a href="velorabattle.apk"
+download
+class="button button-primary">
+
+↓ Download APK
+
+</a>
+
+
+<a href="#how"
+class="button button-secondary">
+
+How It Works
+
+</a>
+
+</div>
+
+
+
+<!-- APP PREVIEW -->
+
+
+<div class="app-preview">
+
+
+<div class="app-screen">
+
+
+<div class="app-top">
+
+<div class="app-logo">
+
+VELORA BATTLE
+
+</div>
+
+
+<div class="wallet">
+
+WALLET
+
+</div>
+
+</div>
+
+
+
+<div class="featured-match">
+
+<div class="live">
+
+● OPEN TO JOIN
+
+</div>
+
+<h3>Battle Arena</h3>
+
+<p>Competitive Tournament</p>
+
+
+<button class="join-button">
+
+Join Tournament
+
+</button>
+
+</div>
+
+
+
+<div class="mini-row">
+
+
+<div class="mini-card">
+
+<strong>Daily</strong>
+
+<span>Tournaments</span>
+
+</div>
+
+
+<div class="mini-card">
+
+<strong>Compete</strong>
+
+<span>Against Players</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+
+
+<section
+class="section"
+id="features">
+
+
+<div class="container">
+
+
+<div class="section-header">
+
+
+<div class="section-label">
+
+PLATFORM FEATURES
+
+</div>
+
+
+<h2 class="section-title">
+
+Everything You Need to Compete
+
+</h2>
+
+
+<p class="section-description">
+
+A focused tournament platform designed to make joining
+and managing competitive matches simple.
+
+</p>
+
+
+</div>
+
+
+
+<div class="features">
+
+
+<div class="feature-card">
+
+<div class="feature-icon">🏆</div>
+
+<h3>Daily Tournaments</h3>
+
+<p>
+
+Discover tournaments and join competitions directly through the Velora Battle app.
+
+</p>
+
+</div>
+
+
+
+<div class="feature-card">
+
+<div class="feature-icon">⚔</div>
+
+<h3>Competitive Battles</h3>
+
+<p>
+
+Challenge players and test your skills across organized gaming competitions.
+
+</p>
+
+</div>
+
+
+
+<div class="feature-card">
+
+<div class="feature-icon">📱</div>
+
+<h3>Simple Experience</h3>
+
+<p>
+
+Browse tournaments, join matches and manage your participation from one application.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- TOURNAMENT MODES -->
+
+
+<section
+class="section"
+id="modes">
+
+
+<div class="container">
+
+
+<div class="section-header">
+
+
+<div class="section-label">
+
+COMPETITION MODES
+
+</div>
+
+
+<h2 class="section-title">
+
+Choose Your Battle
+
+</h2>
+
+
+<p class="section-description">
+
+Different tournament formats for different playstyles.
+
+</p>
+
+
+</div>
+
+
+
+<div class="modes">
+
+
+<div class="mode-card">
+
+<div class="mode-number">01</div>
+
+<h3>Solo Battles</h3>
+
+<p>
+
+Enter the arena and compete for yourself.
+
+</p>
+
+</div>
+
+
+
+<div class="mode-card">
+
+<div class="mode-number">02</div>
+
+<h3>Squad Battles</h3>
+
+<p>
+
+Team up and compete together.
+
+</p>
+
+</div>
+
+
+
+<div class="mode-card">
+
+<div class="mode-number">03</div>
+
+<h3>Special Events</h3>
+
+<p>
+
+Participate in selected tournaments and limited competitions.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- HOW IT WORKS -->
+
+
+<section
+class="section"
+id="how">
+
+
+<div class="container">
+
+
+<div class="section-header">
+
+
+<div class="section-label">
+
+GET STARTED
+
+</div>
+
+
+<h2 class="section-title">
+
+From Download to Battle
+
+</h2>
+
+
+<p class="section-description">
+
+Start competing with Velora Battle in a few simple steps.
+
+</p>
+
+
+</div>
+
+
+
+<div class="steps">
+
+
+<div class="step">
+
+<div class="step-number">01</div>
+
+<div>
+
+<h3>Download Velora Battle</h3>
+
+<p>
+
+Download the APK directly from this website.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="step">
+
+<div class="step-number">02</div>
+
+<div>
+
+<h3>Create Your Account</h3>
+
+<p>
+
+Register your account and enter the Velora Battle platform.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="step">
+
+<div class="step-number">03</div>
+
+<div>
+
+<h3>Choose a Tournament</h3>
+
+<p>
+
+Browse available tournaments and select the competition you want to join.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="step">
+
+<div class="step-number">04</div>
+
+<div>
+
+<h3>Enter the Battle</h3>
+
+<p>
+
+Join the tournament, compete and prove your skills.
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- DOWNLOAD CTA -->
+
+
+<section class="download-section">
+
+
+<div class="container">
+
+
+<div class="download-card">
+
+
+<div class="section-label">
+
+VELORA BATTLE
+
+</div>
+
+
+<h2>
+
+Your Next Battle<br>
+Starts Here.
+
+</h2>
+
+
+<p>
+
+Download Velora Battle and explore competitive tournaments
+from your Android device.
+
+</p>
+
+
+<a href="velorabattle.apk"
+download
+class="button button-primary">
+
+↓ Download Velora Battle
+
+</a>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- FAQ -->
+
+
+<section
+class="section"
+id="faq">
+
+
+<div class="container">
+
+
+<div class="section-header">
+
+
+<div class="section-label">
+
+FAQ
+
+</div>
+
+
+<h2 class="section-title">
+
+Frequently Asked Questions
+
+</h2>
+
+
+</div>
+
+
+
+<div class="faq">
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Is Velora Battle free to download?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+
+Yes. You can download the Velora Battle APK directly from this website.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+How do I join a tournament?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+
+Download the application, create an account, browse available tournaments and select one to join.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Which devices are supported?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+
+Velora Battle is distributed as an Android APK and requires a compatible Android device.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Where can I download the official APK?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+
+Use the download buttons available on this official Velora Battle website.
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+
+<footer>
+
+
+<div class="container">
+
+
+<div class="footer-content">
+
+
+<div class="footer-brand">
+
+
+<div class="brand">
+
+<div class="brand-icon">V</div>
+
+Velora <span>Battle</span>
+
+</div>
+
+
+<p>
+
+A competitive gaming tournament platform built for players
+who want organized battles and challenging competitions.
+
+</p>
+
+
+</div>
+
+
+
+<div class="footer-links">
+
+
+<div class="footer-column">
+
+<strong>Platform</strong>
+
+<a href="#features">Features</a>
+
+<a href="#modes">Tournaments</a>
+
+<a href="#how">How It Works</a>
+
+</div>
+
+
+
+<div class="footer-column">
+
+<strong>Support</strong>
+
+<a href="#faq">FAQ</a>
+
+<a href="velorabattle.apk" download>
+
+Download APK
+
+</a>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="copyright">
+
+© 2026 Velora Battle. All rights reserved.
+
+</div>
+
+
+</div>
+
+
+</footer>
+
+
+
+<script>
+
+
+/* FAQ ACCORDION */
+
+
+const questions =
+document.querySelectorAll(".faq-question");
+
+
+questions.forEach(question => {
+
+
+question.addEventListener("click",()=>{
+
+
+const answer =
+question.nextElementSibling;
+
+
+const icon =
+question.querySelector("span");
+
+
+const isOpen =
+answer.style.maxHeight;
+
+
+document
+.querySelectorAll(".faq-answer")
+.forEach(item=>{
+
+item.style.maxHeight=null;
+
+});
+
+
+document
+.querySelectorAll(".faq-question span")
+.forEach(item=>{
+
+item.textContent="+";
+
+});
+
+
+if(!isOpen){
+
+answer.style.maxHeight =
+answer.scrollHeight+"px";
+
+icon.textContent="−";
+
+}
+
+
+});
+
+
+});
+
+
+</script>
+
+
+</body>
+  </html>

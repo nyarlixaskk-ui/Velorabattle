@@ -2,1261 +2,1280 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#020817">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020712">
 
 <title>Velora Battle — Competitive Tournament Platform</title>
 
-<meta name="description" content="Download Velora Battle and compete in organized gaming tournaments through a focused competitive platform.">
+<meta name="description" content="Download Velora Battle for Android and access competitive tournaments, match information, results and tournament account features.">
 
-<link rel="icon" href="20260708_110950.png">
+<link rel="icon" href="./20260708_110950.png">
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap");
 
 :root{
-    --bg:#020711;
-    --surface:#07101f;
-    --surface2:#09162a;
-    --primary:#3478ff;
-    --primary2:#76a7ff;
-    --text:#f5f8ff;
-    --muted:#8c9ab3;
-    --border:rgba(130,170,255,.13);
-    --borderStrong:rgba(90,145,255,.3);
-    --success:#61dca5;
+  --bg:#020712;
+  --surface:#071120;
+  --surface-2:#09172b;
+  --text:#f4f7ff;
+  --muted:#8d9bb3;
+  --blue:#367cff;
+  --blue-light:#77a7ff;
+  --border:rgba(127,169,255,.14);
+  --border-strong:rgba(89,145,255,.30);
+  --green:#69dda8;
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    min-height:100vh;
-    overflow-x:hidden;
-    background:
-        radial-gradient(circle at 80% 0%,rgba(30,91,220,.17),transparent 30%),
-        radial-gradient(circle at 0 30%,rgba(20,69,170,.09),transparent 27%),
-        var(--bg);
-    color:var(--text);
-    font-family:"Inter",sans-serif;
+  min-width:320px;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 85% 0%,rgba(35,95,220,.18),transparent 30%),
+    radial-gradient(circle at 0% 34%,rgba(24,75,180,.09),transparent 28%),
+    var(--bg);
+  font-family:"Inter",Arial,sans-serif;
 }
 
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.025;
-    background-image:
-        linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
-    background-size:50px 50px;
-    mask-image:linear-gradient(to bottom,#000,transparent 80%);
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.024;
+  background-image:
+    linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+
+img{
+  display:block;
+  max-width:100%;
 }
 
 a{
-    text-decoration:none;
-    color:inherit;
+  color:inherit;
+  text-decoration:none;
 }
 
-button,a{
-    -webkit-tap-highlight-color:transparent;
+button{
+  font:inherit;
 }
 
 .container{
-    width:min(1160px,calc(100% - 36px));
-    margin:auto;
+  width:calc(100% - 36px);
+  max-width:1160px;
+  margin:0 auto;
 }
 
-/* NAVBAR */
+/*
+==================================================
+IMPORTANT FIX
 
-.nav{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index:999;
-    transition:.3s;
+NO OPACITY HIDING.
+NO REVEAL CLASS.
+NO INTERSECTION OBSERVER.
+NO CONTENT DEPENDS ON JAVASCRIPT.
+
+ALL WEBSITE CONTENT IS ALWAYS VISIBLE.
+==================================================
+*/
+
+
+/* NAVIGATION */
+
+.navbar{
+  position:fixed;
+  top:0;
+  right:0;
+  left:0;
+  z-index:1000;
+  border-bottom:1px solid transparent;
+  transition:background .25s,border-color .25s;
 }
 
-.nav.active{
-    background:rgba(2,7,17,.88);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
+.navbar.scrolled{
+  background:rgba(2,7,18,.92);
+  border-color:var(--border);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
 }
 
 .nav-inner{
-    height:76px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
 }
 
 .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-family:"Manrope",sans-serif;
-    font-weight:800;
-    font-size:19px;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.brand img{
-    width:43px;
-    height:43px;
-    border-radius:12px;
-    object-fit:cover;
-    border:1px solid var(--borderStrong);
+.brand-logo{
+  flex:0 0 auto;
+  width:43px;
+  height:43px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--border-strong);
+  box-shadow:0 8px 28px rgba(30,100,255,.15);
+}
+
+.brand-name{
+  overflow:hidden;
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .nav-links{
-    display:flex;
-    align-items:center;
-    gap:28px;
-    font-size:13px;
-    font-weight:600;
-    color:#9ba9c0;
+  display:flex;
+  align-items:center;
+  gap:28px;
+  color:#9caac1;
+  font-size:13px;
+  font-weight:600;
+}
+
+.nav-links a{
+  transition:color .2s;
 }
 
 .nav-links a:hover{
-    color:white;
+  color:#fff;
 }
 
 .nav-download{
-    color:white!important;
-    background:linear-gradient(135deg,#347cff,#1557dc);
-    padding:11px 17px;
-    border-radius:11px;
+  padding:11px 17px;
+  color:#fff !important;
+  border-radius:11px;
+  background:linear-gradient(135deg,#3a80ff,#1556da);
+  box-shadow:0 10px 30px rgba(30,100,255,.20);
 }
 
-.menu-btn{
-    display:none;
-    border:0;
-    background:none;
-    color:white;
-    font-size:25px;
-    cursor:pointer;
+.menu-button{
+  display:none;
+  width:46px;
+  height:46px;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  color:#fff;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:29px;
 }
+
 
 /* HERO */
 
 .hero{
-    position:relative;
-    min-height:780px;
-    display:flex;
-    align-items:center;
-    padding:145px 0 85px;
+  position:relative;
+  width:100%;
+  min-height:780px;
+  padding:150px 0 90px;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:60px;
+  right:-300px;
+  width:650px;
+  height:650px;
+  border-radius:50%;
+  background:rgba(35,100,255,.10);
+  filter:blur(120px);
+  pointer-events:none;
 }
 
 .hero-grid{
-    display:grid;
-    grid-template-columns:1.08fr .92fr;
-    gap:70px;
-    align-items:center;
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  align-items:center;
+  gap:70px;
+}
+
+.hero-copy{
+  display:block;
+  visibility:visible;
+  opacity:1;
 }
 
 .badge{
-    width:max-content;
-    max-width:100%;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 12px;
-    border:1px solid var(--borderStrong);
-    background:rgba(39,94,200,.08);
-    border-radius:100px;
-    color:#aac9ff;
-    font-size:11px;
-    font-weight:700;
-    margin-bottom:25px;
+  width:max-content;
+  max-width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:25px;
+  padding:8px 12px;
+  color:#a9c8ff;
+  border:1px solid var(--border-strong);
+  border-radius:999px;
+  background:rgba(40,95,205,.08);
+  font-size:11px;
+  font-weight:700;
 }
 
 .badge-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#6ba3ff;
-    box-shadow:0 0 14px #3478ff;
+  width:7px;
+  height:7px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:#6fa5ff;
+  box-shadow:0 0 14px var(--blue);
 }
 
 h1{
-    font-family:"Manrope",sans-serif;
-    font-size:clamp(49px,6vw,80px);
-    line-height:1;
-    letter-spacing:-4px;
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:clamp(50px,6vw,80px);
+  font-weight:800;
+  line-height:.99;
+  letter-spacing:-4px;
 }
 
-.gradient{
-    background:linear-gradient(110deg,#fff,#79a8ff);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+.gradient-text{
+  color:#8eb5ff;
+  background:linear-gradient(110deg,#fff 5%,#78a7ff 80%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.hero-text{
-    max-width:610px;
-    margin-top:27px;
-    color:var(--muted);
-    line-height:1.75;
-    font-size:16px;
+.hero-description{
+  max-width:610px;
+  margin-top:28px;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.75;
 }
 
-.hero-buttons{
-    display:flex;
-    gap:13px;
-    flex-wrap:wrap;
-    margin-top:34px;
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:13px;
+  margin-top:34px;
 }
 
-.btn{
-    min-height:54px;
-    padding:0 23px;
-    border-radius:13px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-    border:1px solid transparent;
-    font-size:14px;
-    font-weight:700;
-    transition:.25s;
+.button{
+  min-height:54px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:0 23px;
+  border:1px solid transparent;
+  border-radius:13px;
+  font-size:14px;
+  font-weight:700;
+  transition:transform .2s,background .2s,border-color .2s;
 }
 
-.primary{
-    color:#fff;
-    background:linear-gradient(135deg,#3c80ff,#1456d9);
-    box-shadow:0 14px 40px rgba(35,105,255,.25);
+.button-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#3c81ff,#1455d7);
+  box-shadow:0 14px 40px rgba(35,105,255,.24);
 }
 
-.primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 19px 50px rgba(35,105,255,.34);
+.button-primary:hover{
+  transform:translateY(-2px);
 }
 
-.secondary{
-    border-color:var(--border);
-    background:rgba(255,255,255,.035);
-    color:#c2ccdc;
+.button-secondary{
+  color:#c4cede;
+  border-color:var(--border);
+  background:rgba(255,255,255,.035);
 }
 
-.secondary:hover{
-    border-color:var(--borderStrong);
-    background:rgba(255,255,255,.07);
+.button-secondary:hover{
+  border-color:var(--border-strong);
+  background:rgba(255,255,255,.065);
 }
 
-.download-note{
-    display:flex;
-    gap:8px;
-    align-items:center;
-    color:#71809a;
-    margin-top:20px;
-    font-size:12px;
+.hero-note{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:21px;
+  color:#71809a;
+  font-size:12px;
 }
 
-.download-note span{
-    color:var(--success);
+.hero-note strong{
+  color:var(--green);
 }
 
-/* HERO CARD */
 
-.hero-card{
-    padding:1px;
-    border-radius:31px;
-    background:linear-gradient(145deg,rgba(110,160,255,.42),rgba(255,255,255,.03),rgba(50,110,255,.15));
-    box-shadow:0 30px 90px rgba(0,0,0,.4);
+/* APP CARD */
+
+.app-card{
+  display:block;
+  visibility:visible;
+  opacity:1;
+  padding:1px;
+  border-radius:31px;
+  background:linear-gradient(
+    145deg,
+    rgba(110,160,255,.42),
+    rgba(255,255,255,.03),
+    rgba(50,110,255,.15)
+  );
+  box-shadow:0 30px 90px rgba(0,0,0,.42);
 }
 
-.hero-card-inner{
-    position:relative;
-    overflow:hidden;
-    min-height:500px;
-    padding:33px;
-    border-radius:30px;
-    background:
-        radial-gradient(circle at 85% 5%,rgba(50,110,255,.22),transparent 34%),
-        linear-gradient(155deg,#0b172b,#050a13 75%);
+.app-card-inner{
+  position:relative;
+  min-height:500px;
+  overflow:hidden;
+  padding:33px;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 85% 5%,rgba(50,110,255,.22),transparent 34%),
+    linear-gradient(155deg,#0b172b,#050a13 75%);
 }
 
-.hero-card-inner:after{
-    content:"";
-    position:absolute;
-    width:250px;
-    height:250px;
-    right:-140px;
-    bottom:-130px;
-    border-radius:50%;
-    background:rgba(50,110,255,.14);
-    filter:blur(55px);
+.app-card-inner::after{
+  content:"";
+  position:absolute;
+  right:-120px;
+  bottom:-130px;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:rgba(50,110,255,.15);
+  filter:blur(60px);
 }
 
 .card-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .app-logo{
-    width:84px;
-    height:84px;
-    border-radius:22px;
-    object-fit:cover;
-    border:1px solid var(--borderStrong);
-    box-shadow:0 15px 45px rgba(0,0,0,.4);
+  width:84px;
+  height:84px;
+  object-fit:cover;
+  border-radius:22px;
+  border:1px solid var(--border-strong);
+  box-shadow:0 15px 45px rgba(0,0,0,.4);
 }
 
 .status{
-    padding:7px 10px;
-    border:1px solid rgba(97,220,165,.2);
-    border-radius:100px;
-    background:rgba(97,220,165,.07);
-    color:#7ee3b6;
-    font-size:10px;
-    font-weight:800;
+  padding:7px 10px;
+  color:#7ee3b7;
+  border:1px solid rgba(100,220,170,.2);
+  border-radius:999px;
+  background:rgba(100,220,170,.07);
+  font-size:10px;
+  font-weight:800;
 }
 
 .card-title{
-    font-family:"Manrope",sans-serif;
-    font-size:32px;
-    letter-spacing:-1px;
-    margin-top:29px;
+  position:relative;
+  z-index:1;
+  margin-top:29px;
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:32px;
+  font-weight:800;
+  letter-spacing:-1.2px;
 }
 
-.card-text{
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.7;
-    margin-top:9px;
+.card-description{
+  position:relative;
+  z-index:1;
+  margin-top:9px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
 }
 
-.card-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:11px;
-    margin-top:27px;
+.mini-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+  margin-top:27px;
 }
 
 .mini-card{
-    min-height:113px;
-    padding:16px;
-    border-radius:16px;
-    background:rgba(255,255,255,.035);
-    border:1px solid var(--border);
+  min-height:113px;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.035);
 }
 
 .mini-icon{
-    width:32px;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:9px;
-    background:rgba(52,120,255,.1);
-    color:#82adff;
-    margin-bottom:14px;
-    font-size:16px;
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+  color:#82adff;
+  border-radius:9px;
+  background:rgba(52,120,255,.10);
 }
 
 .mini-card strong{
-    display:block;
-    font-size:12px;
+  display:block;
+  color:#fff;
+  font-size:12px;
 }
 
 .mini-card p{
-    margin-top:5px;
-    color:#77859d;
-    font-size:10px;
-    line-height:1.5;
+  margin-top:5px;
+  color:#77859d;
+  font-size:10px;
+  line-height:1.5;
 }
 
-/* GENERAL */
+
+/* SECTIONS */
 
 .section{
-    padding:100px 0;
+  display:block;
+  visibility:visible;
+  opacity:1;
+  padding:100px 0;
 }
 
 .section-header{
-    max-width:680px;
-    margin-bottom:46px;
+  max-width:680px;
+  margin-bottom:46px;
 }
 
-.label{
-    color:#70a4ff;
-    text-transform:uppercase;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:1.8px;
-    margin-bottom:14px;
+.section-label{
+  margin-bottom:14px;
+  color:#70a4ff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
 }
 
 h2{
-    font-family:"Manrope",sans-serif;
-    font-size:clamp(34px,4vw,53px);
-    line-height:1.08;
-    letter-spacing:-2.4px;
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:clamp(34px,4vw,53px);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-2.4px;
 }
 
-.section-text{
-    margin-top:17px;
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.75;
+.section-description{
+  margin-top:17px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.75;
 }
+
 
 /* FEATURES */
 
-.features{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
 }
 
-.feature{
-    min-height:245px;
-    padding:27px;
-    border:1px solid var(--border);
-    border-radius:22px;
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.035),transparent),
-        rgba(6,13,25,.7);
-    transition:.3s;
+.feature-card{
+  min-height:245px;
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),transparent),
+    rgba(6,13,25,.72);
+  transition:transform .25s,border-color .25s;
 }
 
-.feature:hover{
-    transform:translateY(-5px);
-    border-color:var(--borderStrong);
+.feature-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--border-strong);
 }
 
 .feature-icon{
-    width:45px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    background:rgba(52,120,255,.09);
-    border:1px solid rgba(100,150,255,.16);
-    color:#78a6ff;
-    margin-bottom:37px;
-    font-size:19px;
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:37px;
+  color:#78a6ff;
+  border:1px solid rgba(100,150,255,.16);
+  border-radius:13px;
+  background:rgba(52,120,255,.09);
+  font-size:19px;
 }
 
-.feature h3{
-    font-family:"Manrope",sans-serif;
-    font-size:17px;
+.feature-card h3{
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:17px;
 }
 
-.feature p{
-    margin-top:10px;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.7;
+.feature-card p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
 }
+
 
 /* STEPS */
 
-.steps{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
+.steps-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
 }
 
-.step{
-    min-height:200px;
-    padding:25px;
-    border:1px solid var(--border);
-    border-radius:20px;
-    background:#07101e;
+.step-card{
+  min-height:200px;
+  padding:25px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:#07101e;
 }
 
 .step-number{
-    color:#6397fa;
-    font-size:11px;
-    font-weight:800;
-    margin-bottom:35px;
+  margin-bottom:35px;
+  color:#6397fa;
+  font-size:11px;
+  font-weight:800;
 }
 
-.step h3{
-    font-size:15px;
+.step-card h3{
+  color:#fff;
+  font-size:15px;
 }
 
-.step p{
-    margin-top:9px;
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.65;
+.step-card p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.65;
 }
+
 
 /* FAIR PLAY */
 
 .fair-box{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
-    padding:54px;
-    border:1px solid var(--border);
-    border-radius:30px;
-    background:
-        radial-gradient(circle at 100% 0,rgba(45,110,255,.16),transparent 40%),
-        #07101d;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;
+  gap:60px;
+  padding:54px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(45,110,255,.16),transparent 40%),
+    #07101d;
 }
 
 .fair-list{
-    display:grid;
-    gap:12px;
+  display:grid;
+  gap:12px;
 }
 
 .fair-item{
-    display:flex;
-    gap:13px;
-    padding:15px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,.05);
-    background:rgba(255,255,255,.025);
+  display:flex;
+  gap:13px;
+  padding:15px;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
 }
 
 .fair-check{
-    flex:0 0 auto;
-    width:23px;
-    height:23px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:7px;
-    background:rgba(52,120,255,.1);
-    color:#75a4ff;
-    font-size:11px;
+  width:23px;
+  height:23px;
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#75a4ff;
+  border-radius:7px;
+  background:rgba(52,120,255,.1);
+  font-size:11px;
 }
 
 .fair-item strong{
-    font-size:12px;
+  color:#fff;
+  font-size:12px;
 }
 
 .fair-item p{
-    color:var(--muted);
-    margin-top:4px;
-    font-size:10px;
-    line-height:1.55;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.55;
 }
+
 
 /* DOWNLOAD */
 
 .download-card{
-    padding:72px 30px;
-    text-align:center;
-    border-radius:31px;
-    border:1px solid var(--borderStrong);
-    background:
-        radial-gradient(circle at 50% -45%,rgba(65,130,255,.35),transparent 56%),
-        linear-gradient(#0a172d,#050b15);
+  padding:72px 30px;
+  text-align:center;
+  border:1px solid var(--border-strong);
+  border-radius:31px;
+  background:
+    radial-gradient(circle at 50% -45%,rgba(65,130,255,.35),transparent 56%),
+    linear-gradient(#0a172d,#050b15);
 }
 
 .download-logo{
-    width:87px;
-    height:87px;
-    object-fit:cover;
-    border-radius:22px;
-    border:1px solid var(--borderStrong);
-    box-shadow:0 18px 55px rgba(0,0,0,.4);
-    margin-bottom:25px;
+  width:87px;
+  height:87px;
+  margin:0 auto 25px;
+  object-fit:cover;
+  border:1px solid var(--border-strong);
+  border-radius:22px;
+  box-shadow:0 18px 55px rgba(0,0,0,.4);
 }
 
 .download-card h2{
-    max-width:700px;
-    margin:auto;
+  max-width:700px;
+  margin:0 auto;
 }
 
 .download-card p{
-    max-width:570px;
-    margin:17px auto 29px;
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.7;
+  max-width:570px;
+  margin:17px auto 29px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
 }
+
 
 /* FAQ */
 
+.faq-header{
+  margin-right:auto;
+  margin-left:auto;
+  text-align:center;
+}
+
 .faq{
-    max-width:800px;
-    margin:auto;
+  max-width:800px;
+  margin:0 auto;
 }
 
 .faq-item{
-    border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--border);
 }
 
 .faq-question{
-    width:100%;
-    padding:22px 0;
-    border:0;
-    background:none;
-    color:#fff;
-    font-family:inherit;
-    font-size:14px;
-    font-weight:600;
-    text-align:left;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    cursor:pointer;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:22px 0;
+  color:#fff;
+  border:0;
+  background:transparent;
+  text-align:left;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
 }
 
 .faq-plus{
-    color:#7285a7;
-    transition:.25s;
+  color:#7285a7;
+  transition:transform .2s;
 }
 
 .faq-answer{
-    display:none;
-    padding:0 0 23px;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.7;
+  display:none;
+  padding:0 0 23px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
 }
 
 .faq-item.open .faq-answer{
-    display:block;
+  display:block;
 }
 
 .faq-item.open .faq-plus{
-    transform:rotate(45deg);
+  transform:rotate(45deg);
 }
+
 
 /* FOOTER */
 
 footer{
-    padding:34px 0;
-    border-top:1px solid var(--border);
-    color:#69758b;
-    font-size:11px;
+  padding:34px 0;
+  color:#69758b;
+  border-top:1px solid var(--border);
+  font-size:11px;
 }
 
 .footer-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
 }
 
 .footer-brand{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    color:#abb6c9;
-    font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#abb6c9;
+  font-weight:700;
 }
 
 .footer-brand img{
-    width:30px;
-    height:30px;
-    object-fit:cover;
-    border-radius:8px;
+  width:30px;
+  height:30px;
+  object-fit:cover;
+  border-radius:8px;
 }
 
-/*
-IMPORTANT FIX:
 
-Content is VISIBLE by default.
-
-Only browsers where JavaScript successfully runs get
-the .js-enabled class and entrance animations.
-*/
-
-.reveal{
-    opacity:1;
-    transform:none;
-}
-
-.js-enabled .reveal{
-    opacity:0;
-    transform:translateY(22px);
-    transition:
-        opacity .65s ease,
-        transform .65s ease;
-}
-
-.js-enabled .reveal.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* MOBILE */
+/* TABLET */
 
 @media(max-width:920px){
 
-    .hero-grid{
-        grid-template-columns:1fr;
-    }
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
 
-    .hero-card{
-        max-width:620px;
-    }
+  .app-card{
+    width:100%;
+    max-width:620px;
+  }
 
-    .features{
-        grid-template-columns:repeat(2,1fr);
-    }
+  .features-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 
-    .steps{
-        grid-template-columns:repeat(2,1fr);
-    }
+  .steps-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 
-    .fair-box{
-        grid-template-columns:1fr;
-    }
+  .fair-box{
+    grid-template-columns:1fr;
+  }
 }
+
+
+/* MOBILE */
 
 @media(max-width:720px){
 
-    .container{
-        width:calc(100% - 28px);
-    }
+  .container{
+    width:calc(100% - 28px);
+  }
 
-    .nav-inner{
-        height:68px;
-    }
+  .nav-inner{
+    min-height:68px;
+  }
 
-    .nav-links{
-        display:none;
-        position:absolute;
-        top:68px;
-        left:14px;
-        right:14px;
-        padding:12px;
-        flex-direction:column;
-        align-items:stretch;
-        gap:3px;
-        border:1px solid var(--border);
-        border-radius:16px;
-        background:rgba(5,11,22,.98);
-        box-shadow:0 25px 60px rgba(0,0,0,.4);
-    }
+  .brand-logo{
+    width:43px;
+    height:43px;
+  }
 
-    .nav-links.open{
-        display:flex;
-    }
+  .brand-name{
+    font-size:18px;
+  }
 
-    .nav-links a{
-        padding:12px;
-    }
+  .menu-button{
+    display:flex;
+  }
 
-    .nav-download{
-        margin-top:5px;
-        text-align:center;
-    }
+  .nav-links{
+    position:absolute;
+    top:68px;
+    right:14px;
+    left:14px;
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:3px;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#050b16;
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+  }
 
-    .menu-btn{
-        display:block;
-    }
+  .nav-links.open{
+    display:flex;
+  }
 
-    .hero{
-        min-height:auto;
-        padding:118px 0 64px;
-    }
+  .nav-links a{
+    padding:12px;
+  }
 
-    .hero-grid{
-        gap:52px;
-    }
+  .nav-download{
+    margin-top:5px;
+    text-align:center;
+  }
 
-    h1{
-        font-size:clamp(46px,14vw,66px);
-        letter-spacing:-3.2px;
-    }
+  .hero{
+    min-height:auto;
+    padding:118px 0 64px;
+  }
 
-    .hero-text{
-        font-size:14px;
-    }
+  .hero-grid{
+    gap:52px;
+  }
 
-    .hero-buttons{
-        display:grid;
-        grid-template-columns:1fr;
-    }
+  h1{
+    font-size:clamp(46px,14vw,66px);
+    letter-spacing:-3.2px;
+  }
 
-    .btn{
-        width:100%;
-    }
+  .hero-description{
+    font-size:14px;
+  }
 
-    .hero-card-inner{
-        min-height:auto;
-        padding:23px;
-    }
+  .hero-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
 
-    .card-title{
-        font-size:28px;
-    }
+  .button{
+    width:100%;
+  }
 
-    .section{
-        padding:76px 0;
-    }
+  .app-card-inner{
+    min-height:auto;
+    padding:23px;
+  }
 
-    .features,
-    .steps{
-        grid-template-columns:1fr;
-    }
+  .card-title{
+    font-size:28px;
+  }
 
-    .fair-box{
-        padding:29px 21px;
-        gap:34px;
-    }
+  .section{
+    padding:76px 0;
+  }
 
-    .download-card{
-        padding:53px 20px;
-    }
+  .features-grid,
+  .steps-grid{
+    grid-template-columns:1fr;
+  }
 
-    .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
-    }
+  .fair-box{
+    gap:34px;
+    padding:29px 21px;
+  }
+
+  .download-card{
+    padding:53px 20px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 }
 
 @media(max-width:380px){
 
-    .card-grid{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(prefers-reduced-motion:reduce){
-
-    html{
-        scroll-behavior:auto;
-    }
-
-    .js-enabled .reveal{
-        opacity:1;
-        transform:none;
-        transition:none;
-    }
+  .mini-grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
-
-<script>
-/*
-Run this immediately.
-
-If JavaScript fails completely, content remains visible
-because .js-enabled is never added.
-*/
-document.documentElement.classList.add("js-enabled");
-</script>
-
 </head>
+
 
 <body>
 
-<nav class="nav" id="navbar">
+<nav class="navbar" id="navbar">
 
-<div class="container nav-inner">
+  <div class="container nav-inner">
 
-<a href="#home" class="brand">
-<img src="20260708_110950.png" alt="Velora Battle Logo">
-<span>Velora Battle</span>
-</a>
+    <a href="#home" class="brand">
 
-<div class="nav-links" id="navLinks">
+      <img
+        src="./20260708_110950.png"
+        class="brand-logo"
+        alt="Velora Battle Logo">
 
-<a href="#features">Features</a>
+      <span class="brand-name">
+        Velora Battle
+      </span>
 
-<a href="#how">How It Works</a>
+    </a>
 
-<a href="#fairplay">Fair Play</a>
 
-<a href="#faq">FAQ</a>
+    <div class="nav-links" id="navLinks">
 
-<a href="velorabattle.apk" download class="nav-download">
-Download App
-</a>
+      <a href="#features">Features</a>
 
-</div>
+      <a href="#how">How It Works</a>
 
-<button
-class="menu-btn"
-id="menuButton"
-type="button"
-aria-label="Open navigation"
-aria-expanded="false">
-☰
-</button>
+      <a href="#fairplay">Fair Play</a>
 
-</div>
+      <a href="#faq">FAQ</a>
+
+      <a
+        href="./velorabattle.apk"
+        download
+        class="nav-download">
+        Download App
+      </a>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="menu-button"
+      id="menuButton"
+      aria-label="Open menu"
+      aria-expanded="false">
+      ☰
+    </button>
+
+  </div>
 
 </nav>
 
 
 <main>
 
+
 <!-- HERO -->
+
 
 <section class="hero" id="home">
 
-<div class="container hero-grid">
-
-<div class="reveal">
-
-<div class="badge">
-<span class="badge-dot"></span>
-COMPETITIVE TOURNAMENT PLATFORM
-</div>
-
-<h1>
-Compete.<br>
-<span class="gradient">Rise Above.</span>
-</h1>
-
-<p class="hero-text">
-Velora Battle brings organized gaming tournaments into one focused platform.
-Discover competitions, join available matches, access match information and
-manage your tournament journey from one place.
-</p>
-
-<div class="hero-buttons">
-
-<a href="velorabattle.apk" download class="btn primary">
-<span>↓</span>
-Download Velora Battle
-</a>
-
-<a href="#features" class="btn secondary">
-Explore Platform
-</a>
-
-</div>
-
-<div class="download-note">
-<span>✓</span>
-Android APK · Direct Download · Manual Installation
-</div>
-
-</div>
+  <div class="container hero-grid">
 
 
-<div class="hero-card reveal">
+    <div class="hero-copy">
 
-<div class="hero-card-inner">
+      <div class="badge">
 
-<div class="card-top">
+        <span class="badge-dot"></span>
 
-<img
-src="20260708_110950.png"
-alt="Velora Battle"
-class="app-logo">
+        COMPETITIVE TOURNAMENT PLATFORM
 
-<div class="status">
-● AVAILABLE
-</div>
-
-</div>
-
-<h3 class="card-title">
-Velora Battle
-</h3>
-
-<p class="card-text">
-Built for players who want organized competition, clear tournament
-information and a focused gaming experience.
-</p>
+      </div>
 
 
-<div class="card-grid">
+      <h1>
 
-<div class="mini-card">
+        Compete.
 
-<div class="mini-icon">⚔</div>
+        <br>
 
-<strong>Tournaments</strong>
+        <span class="gradient-text">
+          Rise Above.
+        </span>
 
-<p>
-Browse and join available competitions.
-</p>
-
-</div>
+      </h1>
 
 
-<div class="mini-card">
+      <p class="hero-description">
 
-<div class="mini-icon">🏆</div>
+        Velora Battle brings organized gaming tournaments into one focused
+        platform. Discover competitions, join available matches, access match
+        information and manage your tournament journey from one place.
 
-<strong>Competition</strong>
-
-<p>
-Participate through structured match formats.
-</p>
-
-</div>
+      </p>
 
 
-<div class="mini-card">
+      <div class="hero-actions">
 
-<div class="mini-icon">◇</div>
+        <a
+          href="./velorabattle.apk"
+          download
+          class="button button-primary">
 
-<strong>Wallet</strong>
+          ↓ Download Velora Battle
 
-<p>
-Track eligible tournament account activity.
-</p>
-
-</div>
+        </a>
 
 
-<div class="mini-card">
+        <a
+          href="#features"
+          class="button button-secondary">
 
-<div class="mini-icon">◆</div>
+          Explore Platform
 
-<strong>Fair Play</strong>
+        </a>
 
-<p>
-Rules designed for competitive integrity.
-</p>
+      </div>
 
-</div>
 
-</div>
+      <div class="hero-note">
 
-</div>
+        <strong>✓</strong>
 
-</div>
+        Android APK · Direct Download · Manual Installation
 
-</div>
+      </div>
+
+    </div>
+
+
+
+    <div class="app-card">
+
+      <div class="app-card-inner">
+
+
+        <div class="card-top">
+
+          <img
+            src="./20260708_110950.png"
+            class="app-logo"
+            alt="Velora Battle">
+
+
+          <div class="status">
+
+            ● AVAILABLE
+
+          </div>
+
+        </div>
+
+
+        <h3 class="card-title">
+
+          Velora Battle
+
+        </h3>
+
+
+        <p class="card-description">
+
+          Built for players who want organized competition, clear tournament
+          information and a focused gaming experience.
+
+        </p>
+
+
+        <div class="mini-grid">
+
+
+          <div class="mini-card">
+
+            <div class="mini-icon">⚔</div>
+
+            <strong>Tournaments</strong>
+
+            <p>Browse and join available competitions.</p>
+
+          </div>
+
+
+
+          <div class="mini-card">
+
+            <div class="mini-icon">🏆</div>
+
+            <strong>Competition</strong>
+
+            <p>Participate through structured match formats.</p>
+
+          </div>
+
+
+
+          <div class="mini-card">
+
+            <div class="mini-icon">◇</div>
+
+            <strong>Wallet</strong>
+
+            <p>Track eligible tournament account activity.</p>
+
+          </div>
+
+
+
+          <div class="mini-card">
+
+            <div class="mini-icon">◆</div>
+
+            <strong>Fair Play</strong>
+
+            <p>Rules designed for competitive integrity.</p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
 
 </section>
+
 
 
 <!-- FEATURES -->
 
+
 <section class="section" id="features">
 
-<div class="container">
+  <div class="container">
 
-<div class="section-header reveal">
 
-<div class="label">
-Platform Features
-</div>
+    <div class="section-header">
 
-<h2>
-Built around the tournament experience.
-</h2>
+      <div class="section-label">
 
-<p class="section-text">
-Velora Battle keeps tournament discovery, participation,
-match information, competition results and account activity
-organized inside one focused platform.
-</p>
+        Platform Features
 
-</div>
+      </div>
 
 
-<div class="features">
+      <h2>
 
+        Built around the tournament experience.
 
-<article class="feature reveal">
+      </h2>
 
-<div class="feature-icon">⚔</div>
 
-<h3>Competitive Tournaments</h3>
+      <p class="section-description">
 
-<p>
-Discover available competitions and participate in supported
-tournament formats directly through the application.
-</p>
+        Velora Battle keeps tournament discovery, participation, match
+        information, competition results and account activity organized
+        inside one focused platform.
 
-</article>
+      </p>
 
+    </div>
 
-<article class="feature reveal">
 
-<div class="feature-icon">⌁</div>
 
-<h3>Match Information</h3>
+    <div class="features-grid">
 
-<p>
-Access schedules, tournament instructions and match-related
-information through a clear interface.
-</p>
 
-</article>
+      <article class="feature-card">
 
+        <div class="feature-icon">⚔</div>
 
-<article class="feature reveal">
+        <h3>Competitive Tournaments</h3>
 
-<div class="feature-icon">🏆</div>
+        <p>
 
-<h3>Results & Rankings</h3>
+          Discover available competitions and participate in supported
+          tournament formats directly through the application.
 
-<p>
-Follow competition outcomes and view tournament results after
-they are published by administrators.
-</p>
+        </p>
 
-</article>
+      </article>
 
 
-<article class="feature reveal">
 
-<div class="feature-icon">◇</div>
+      <article class="feature-card">
 
-<h3>Wallet Management</h3>
+        <div class="feature-icon">⌁</div>
 
-<p>
-Track eligible tournament transactions and account activity
-through the integrated wallet interface.
-</p>
+        <h3>Match Information</h3>
 
-</article>
+        <p>
 
+          Access schedules, tournament instructions and match-related
+          information through a clear interface.
 
-<article class="feature reveal">
+        </p>
 
-<div class="feature-icon">●</div>
+      </article>
 
-<h3>Match Updates</h3>
 
-<p>
-Access important tournament announcements and match-related
-updates through the platform.
-</p>
 
-</article>
+      <article class="feature-card">
 
+        <div class="feature-icon">🏆</div>
 
-<article class="feature reveal">
+        <h3>Results & Rankings</h3>
 
-<div class="feature-icon">◆</div>
+        <p>
 
-<h3>Competition Rules</h3>
+          Follow competition outcomes and view tournament results after
+          they are published by tournament administrators.
 
-<p>
-Clear eligibility requirements and participation guidelines help
-maintain structured competitive matches.
-</p>
+        </p>
 
-</article>
+      </article>
 
 
-</div>
 
-</div>
+      <article class="feature-card">
 
-</section>
+        <div class="feature-icon">◇</div>
 
+        <h3>Wallet Management</h3>
 
-<!-- HOW IT WORKS -->
+        <p>
 
-<section class="section" id="how">
+          Track eligible tournament transactions and account activity
+          through the integrated wallet interface.
 
-<div class="container">
+        </p>
 
-<div class="section-header reveal">
+      </article>
 
-<div class="label">
-How It Works
-</div>
 
-<h2>
-From download to competition.
-</h2>
 
-<p class="section-text">
-Start using Velora Battle through a simple tournament participation flow.
-</p>
+      <article class="feature-card">
 
-</div>
+        <div class="feature-icon">●</div>
 
+        <h3>Match Updates</h3>
 
-<div class="steps">
+        <p>
 
+          Access important tournament announcements and match-related
+          updates through the platform.
 
-<div class="step reveal">
+        </p>
 
-<div class="step-number">
-STEP 01
-</div>
+      </article>
 
-<h3>Download</h3>
 
-<p>
-Download the official Velora Battle Android APK directly from this website.
-</p>
 
-</div>
-
-
-<div class="step reveal">
-
-<div class="step-number">
-STEP 02
-</div>
-
-<h3>Create Account</h3>
-
-<p>
-Register your account and complete the required profile information.
-</p>
-
-</div>
-
-
-<div class="step reveal">
-
-<div class="step-number">
-STEP 03
-</div>
-
-<h3>Choose Tournament</h3>
-
-<p>
-Browse available competitions and review tournament requirements before joining.
-</p>
-
-</div>
-
-
-<div class="step reveal">
-
-<div class="step-number">
-STEP 04
-</div>
-
-<h3>Compete</h3>
-
-<p>
-Follow match instructions, participate fairly and track competition results.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FAIR PLAY -->
-
-<section class="section" id="fairplay">
-
-<div class="container">
-
-<div class="fair-box reveal">
-
-<div>
-
-<div class="label">
-Competitive Integrity
-</div>
-
-<h2>
-Competition should be earned.
-</h2>
-
-<p class="section-text">
-Play
+   
